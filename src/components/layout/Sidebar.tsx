@@ -111,7 +111,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed }) => 
         )}
 
         {/* Navigation Items */}
-        <nav className="flex-1 px-3 py-4 space-y-1">
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto pr-2">
           {filteredItems.map((item) => {
             const isActive = pathname === item.path;
             const Icon = item.icon;
