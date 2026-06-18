@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { User, Mail, Lock, Shield, ArrowLeft, ArrowRight } from 'lucide-react';
+import { User, Mail, Lock, Shield, ArrowLeft, ArrowRight, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
 import { Input, Label, Select } from '@/components/ui/Input';
 import { register } from '@/lib/auth';
+import { loginWithGoogle } from '@/lib/auth';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function RegisterPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,6 +52,19 @@ export default function RegisterPage() {
     { value: 'employee', label: 'Employee' },
     { value: 'manager', label: 'Manager' }
   ];
+  
+  const handleGoogleRegister = async () => {
+    setError('');
+    setGoogleLoading(true);
+    try {
+      await loginWithGoogle();
+      router.push('/dashboard');
+    } catch (err: any) {
+      setError(err.message || 'Google Auth failed.');
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-bg-app text-text-primary tech-grid flex items-center justify-center p-6 relative">
@@ -143,6 +158,24 @@ export default function RegisterPage() {
 
               <Button type="submit" variant="primary" className="w-full py-2.5 mt-4" isLoading={isLoading}>
                 Register Workspace <ArrowRight size={14} className="inline ml-1" />
+              </Button>
+              {/* Divider */}
+              <div className="relative my-6 text-center">
+                <span className="absolute inset-x-0 top-1/2 border-b border-border-color" />
+                <span className="relative bg-bg-card px-3 text-xxs text-text-muted font-bold uppercase tracking-wider">
+                  Or Continue With
+                </span>
+              </div>
+
+              {/* Google Authentication Button */}
+              <Button 
+                type="button" 
+                variant="outline" 
+                className="w-full flex items-center justify-center gap-2 py-2.5 text-xs"
+                onClick={handleGoogleRegister}
+                isLoading={googleLoading}
+              >
+                <Globe size={14} /> Google Account
               </Button>
             </form>
           </CardContent>
