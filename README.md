@@ -20,6 +20,17 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Demo Login
+
+Use the following demo credentials to sign in locally:
+
+- `admin@nexvora.com` — password: `password123`
+- `john@nexvora.com` — password: `password123`
+- `alice@nexvora.com` — password: `password123`
+- `bob@nexvora.com` — password: `password123`
+
+> These login details are for the local sandbox/demo mode in this app.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
